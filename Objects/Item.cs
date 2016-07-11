@@ -120,6 +120,76 @@ namespace Inventory
       }
     }
 
+    public static Item Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr = null;
+      conn.Open();
 
+      SqlCommand cmd = new SqlCommand("SELECT * FROM items WHERE id = @ItemId;", conn);
+      SqlParameter ItemIdParameter = new SqlParameter();
+      ItemIdParameter.ParameterName = "@ItemId";
+      ItemIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(ItemIdParameter);
+      rdr = cmd.ExecuteReader();
+
+      int foundItemId = 0;
+      string foundItemName = null;
+      string foundItemType = null;
+      while(rdr.Read())
+      {
+        foundItemId = rdr.GetInt32(0);
+        foundItemName = rdr.GetString(1);
+        foundItemType = rdr.GetString(2);
+      }
+      Item foundItem = new Item(foundItemName, foundItemType, foundItemId);
+
+      if (rdr !=null)
+      {
+        rdr.Close();
+      }
+      if (rdr !=null)
+      {
+        conn.Close();
+      }
+
+      return foundItem;
+    }
+
+    public static Item FindByName(string name)
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr = null;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM items WHERE name = @ItemName;", conn);
+      SqlParameter ItemNameParameter = new SqlParameter();
+      ItemNameParameter.ParameterName = "@ItemName";
+      ItemNameParameter.Value = name;
+      cmd.Parameters.Add(ItemNameParameter);
+      rdr = cmd.ExecuteReader();
+
+      int foundItemId = 0;
+      string foundItemName = null;
+      string foundItemType = null;
+      while(rdr.Read())
+      {
+        foundItemId = rdr.GetInt32(0);
+        foundItemName = rdr.GetString(1);
+        foundItemType = rdr.GetString(2);
+      }
+      Item foundItem = new Item(foundItemName, foundItemType, foundItemId);
+
+      if (rdr !=null)
+      {
+        rdr.Close();
+      }
+      if (rdr !=null)
+      {
+        conn.Close();
+      }
+
+      return foundItem;
+    }
   }
 }

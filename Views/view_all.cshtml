@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>View Inventory</title>
+  </head>
+  <body>
+    <ul>
+    @foreach(var item in @Model)
+    {
+    <a href="view_item/@item.GetId()"><li>@item.GetName() - @item.GetItemType()</li></a>
+    }
+    </ul>
+  </body>
+</html>

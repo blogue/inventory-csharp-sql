@@ -45,5 +45,39 @@ namespace Inventory
 
       Assert.Equal(testList, result);
     }
+    [Fact]
+    public void Test_Save_AssignsIdToObject()
+    {
+      Item testItem = new Item("Coffee mug", "cup");
+
+      testItem.Save();
+      Item savedItem = Item.GetAll()[0];
+
+      int result = savedItem.GetId();
+      int testId = testItem.GetId();
+
+      Assert.Equal(testId, result);
+    }
+
+    [Fact]
+    public void Test_Find_FindsItemInDatabase()
+    {
+      Item testItem = new Item("Coffee mug", "cup");
+      testItem.Save();
+
+      Item foundItem = Item.Find(testItem.GetId());
+
+      Assert.Equal(testItem, foundItem);
+    }
+    [Fact]
+    public void Test_FindByName_FindItemInDatabase()
+    {
+      Item testItem = new Item("Coffee mug", "cup");
+      testItem.Save();
+
+      Item foundItem = Item.FindByName(testItem.GetName());
+
+      Assert.Equal(testItem, foundItem);
+    }
   }
 }
