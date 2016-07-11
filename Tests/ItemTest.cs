@@ -34,6 +34,7 @@ namespace Inventory
 
       Assert.Equal(firstItem, secondItem);
     }
+
     [Fact]
     public void Test_Save_SavesToDatabase()
     {
@@ -45,6 +46,7 @@ namespace Inventory
 
       Assert.Equal(testList, result);
     }
+
     [Fact]
     public void Test_Save_AssignsIdToObject()
     {
@@ -69,6 +71,7 @@ namespace Inventory
 
       Assert.Equal(testItem, foundItem);
     }
+
     [Fact]
     public void Test_FindByName_FindItemInDatabase()
     {
@@ -78,6 +81,17 @@ namespace Inventory
       Item foundItem = Item.FindByName(testItem.GetName());
 
       Assert.Equal(testItem, foundItem);
+    }
+
+    [Fact]
+    public void Test_SearchItems_FindItemInDatabase()
+    {
+      Item testItem = new Item("Coffee mug", "cup");
+      testItem.Save();
+
+      List<Item> foundItems = Item.SearchItems("coffee");
+
+      Assert.Equal(testItem, foundItems[0]);
     }
   }
 }

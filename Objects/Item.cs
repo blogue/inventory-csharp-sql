@@ -191,5 +191,19 @@ namespace Inventory
 
       return foundItem;
     }
+
+    public static List<Item> SearchItems(string searchTerm)
+    {
+      List<Item> allItems = GetAll();
+      List<Item> searchResults = new List<Item>{};
+      foreach(Item item in allItems)
+      {
+        if (item._name.ToLower().Contains(searchTerm.ToLower()))
+        {
+          searchResults.Add(item);
+        }
+      }
+      return searchResults;
+    }
   }
 }

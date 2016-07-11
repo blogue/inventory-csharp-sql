@@ -24,19 +24,25 @@ namespace Inventory
       Get["/view_all"] = _ =>
       {
         List<Item> allItems = Item.GetAll();
-        return View["view_all.cshtml", allItems];
+        return View["view_list.cshtml", allItems];
       };
 
       Get["/search"] = _ =>
       {
-        Item foundItem = Item.FindByName(Request.Query["search-term"]);
-        return View["view_item.cshtml", foundItem];
+        List<Item> searchResults = Item.SearchItems(Request.Query["search-term"]);
+        return View["view_list.cshtml", searchResults];
       };
 
       Get["/view_item/{id}"] = parameters =>
       {
         Item foundItem = Item.Find(parameters.id);
         return View["view_item.cshtml", foundItem];
+      };
+
+      Post["/delete_all"] = _ =>
+      {
+        Item.DeleteAll();
+        return View["index.cshtml"];
       };
     }
   }
